@@ -10,10 +10,10 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                sh 'pip3 install -r requirements.txt'
-            }
-        }
+    steps {
+        sh '/usr/bin/pip3 install -r requirements.txt'
+    }
+}
 
         stage('Deploy') {
             steps {
