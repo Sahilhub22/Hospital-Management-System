@@ -2,15 +2,25 @@ pipeline {
     agent any
 
     stages {
+        stage('Clone') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/Sahilhub22/Hospital-Management-System.git'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'pip3 install -r requirements.txt'
             }
         }
 
-        stage('Run Application') {
+        stage('Deploy') {
             steps {
-                sh 'python3 run.py'
+                sh '''
+                pkill -f run.py || true
+                nohup python3 run.py > app.log 2>&1 &
+                '''
             }
         }
     }
